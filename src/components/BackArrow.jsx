@@ -7,9 +7,9 @@ export default function BackArrow({ to = '/' }) {
     <Link
       to={to}
       aria-label="Back"
-      className="absolute top-10 left-10 z-20 text-white transition-colors hover:text-accent"
+      className="absolute top-12 left-12 z-20 text-white transition-colors hover:text-accent"
     >
-      <RxReset size={20} />
+      <RxReset size={25} />
     </Link>
   )
 }

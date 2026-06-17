@@ -20,9 +20,9 @@ export default function ParticleToggle({ enabled, onToggle }) {
       aria-label="Toggle particle background"
       aria-pressed={!enabled}
       style={{ color: showAccent ? 'var(--color-accent)' : '#ffffff' }}
-      className="fixed top-10 right-10 z-30"
+      className="fixed top-12 right-12 z-30"
     >
-      <CgDribbble size={20} />
+      <CgDribbble size={25} />
     </button>
   )
 }

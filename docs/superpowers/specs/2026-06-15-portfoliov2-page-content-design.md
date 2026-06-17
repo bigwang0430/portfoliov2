@@ -234,6 +234,8 @@ removal (delete the component + revert three lines in `Layout.jsx`).
 ### Misc content/style
 - Contact heading is "AVAILABLE FOR WORK"; About hero is a large left-aligned "Hi,".
 - The particle palette in `defaults.js` is a cyan/pink set on black.
+- All content columns share a `max-w-2xl` (672px) cap so About, Projects, and the
+  detail page align; the back arrow and particle toggle sit at a `top-12` inset.
 
 ### Supersedes above
 - The "Furious Frogs detail" content block and "tech pills" / `text-[10px]` styling

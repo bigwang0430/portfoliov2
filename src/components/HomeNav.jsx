@@ -60,7 +60,7 @@ export default function HomeNav() {
     <nav
       ref={navRef}
       onMouseLeave={setFull}
-      className="relative flex items-center gap-7 pb-2 sm:gap-5"
+      className="relative flex items-center gap-7 pb-2 sm:gap-7"
     >
       {NAV_LINKS.map(({ to, label }, index) => (
         <Link
@@ -68,7 +68,7 @@ export default function HomeNav() {
           to={to}
           ref={(el) => (linkRefs.current[index] = el)}
           onMouseEnter={() => setToLink(index)}
-          className="font-mono text-sm text-white sm:text-[11px]"
+          className="font-mono text-sm text-white sm:text-[13px]"
         >
           {label}
         </Link>

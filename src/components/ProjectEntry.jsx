@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 // open in a new tab; internal ones route to /projects/<slug>.
 export default function ProjectEntry({ project }) {
   const { name, tagline, external, href, slug } = project
-  const nameClass = 'font-mono text-xs font-bold text-white transition-colors hover:text-accent'
+  const nameClass = 'font-mono text-[15px] font-bold text-white transition-colors hover:text-accent'
 
   return (
     <div>
@@ -17,7 +17,7 @@ export default function ProjectEntry({ project }) {
           {name}
         </Link>
       )}
-      <p className="mt-1 font-mono text-[11px] leading-relaxed text-white">{tagline}</p>
+      <p className="mt-1 font-mono text-[13px] leading-relaxed text-white">{tagline}</p>
     </div>
   )
 }

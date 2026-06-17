@@ -59,6 +59,7 @@ The whole site is designed to fit one screen with **no scrolling**. This is enfo
 ## Conventions & constraints
 
 - **Tailwind v4 has no config file.** Theme tokens live in `src/index.css` via `@import 'tailwindcss'` and an `@theme` block (e.g. `--font-mono: 'Roboto Mono'`, `--color-accent: #f9de48`). Add design tokens there, not in a `tailwind.config.js`.
-- **Visual language:** monospace (Roboto Mono, loaded via Google Fonts `<link>` in `index.html`), all-white text (no greys) on a black background; most pages center their content (About left-aligns its text block). Keep type small: body text is `text-[11px]`, with larger sizes reserved for headings/hero.
+- **Visual language:** monospace (Roboto Mono, loaded via Google Fonts `<link>` in `index.html`), all-white text (no greys) on a black background; most pages center their content (About left-aligns its text block). Keep type small — body text is roughly `text-[11px]`–`text-[13px]`, with larger sizes for headings/hero.
+- **Consistent content width:** each page's content column is capped at `max-w-2xl` (672px) and centered — About, Projects, and the project detail page all match. New pages should reuse this cap so sections line up.
 - `main.jsx` wraps the app in `StrictMode`, so effects run twice in dev — keep effects idempotent (relevant for the R3F/measurement code above).
 - This is `portfoliov2`, a deliberately fresh, standalone project (its own git repo). A sibling `../portfolio` exists but is unrelated; do not import from or depend on it.

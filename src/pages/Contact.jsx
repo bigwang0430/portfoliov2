@@ -21,8 +21,8 @@ export default function Contact() {
     <div className="relative h-full w-full">
       <BackArrow />
       <div className="flex h-full w-full flex-col items-center justify-center gap-8 px-6 text-center">
-        <h1 className="font-mono text-sm font-bold text-white">AVAILABLE FOR WORK</h1>
-        <div className="grid grid-cols-2 gap-x-12 gap-y-8">
+        <h1 className="font-mono text-lg font-bold text-white">AVAILABLE FOR WORK</h1>
+        <div className="grid grid-cols-2 gap-x-10 gap-y-8">
           {SOCIALS.map((social) => (
             <a
               key={social.label}
@@ -32,7 +32,7 @@ export default function Contact() {
               aria-label={social.label}
               className="flex items-center justify-center text-white transition-colors hover:text-accent"
             >
-              <social.Icon size={28} />
+              <social.Icon size={35} />
             </a>
           ))}
         </div>

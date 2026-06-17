@@ -7,7 +7,7 @@ function Bullets({ items }) {
   return (
     <ul className="ml-4 list-disc space-y-1">
       {items.map((item, i) => (
-        <li key={i} className="font-mono text-[11px] leading-relaxed text-white">
+        <li key={i} className="font-mono text-[13px] leading-relaxed text-white">
           {item}
         </li>
       ))}
@@ -18,14 +18,14 @@ function Bullets({ items }) {
 function Section({ section }) {
   return (
     <section className="border-t border-white py-8">
-      <h2 className="mb-3 font-mono text-2xl font-bold text-white">{section.title}</h2>
+      <h2 className="mb-3 font-mono text-3xl font-bold text-white">{section.title}</h2>
       {section.body && (
-        <p className="font-mono text-[11px] leading-relaxed text-white">{section.body}</p>
+        <p className="font-mono text-[13px] leading-relaxed text-white">{section.body}</p>
       )}
       {section.bullets && <Bullets items={section.bullets} />}
       {section.subsections?.map((sub) => (
         <div key={sub.title} className="mt-4">
-          <h3 className="mb-2 font-mono text-xs font-bold text-white">{sub.title}</h3>
+          <h3 className="mb-2 font-mono text-[14px] font-bold text-white">{sub.title}</h3>
           <Bullets items={sub.bullets} />
         </div>
       ))}
@@ -44,8 +44,8 @@ function OverviewCard({ item }) {
   // separate inline-flex element that would shift its baseline).
   return (
     <Card>
-      <p className="mb-1 font-mono text-[11px] font-bold text-white">{item.label}</p>
-      <p className="font-mono text-[11px] text-white">
+      <p className="mb-1 font-mono text-[13px] font-bold text-white">{item.label}</p>
+      <p className="font-mono text-[13px] text-white">
         {item.href ? (
           <a
             href={item.href}
@@ -53,7 +53,7 @@ function OverviewCard({ item }) {
             rel="noopener noreferrer"
             className="text-white transition-colors hover:text-accent"
           >
-            <FaGlobe className="mr-1.5 inline-block align-[-0.125em]" size={11} />
+            <FaGlobe className="mr-1.5 inline-block align-[-0.125em]" size={13} />
             {item.value}
           </a>
         ) : (
@@ -88,13 +88,13 @@ export default function ProjectDetail() {
     <div className="relative h-full w-full">
       <BackArrow to="/projects" />
       <div className="h-full overflow-y-auto">
-        <div className="mx-auto w-full max-w-xl px-6 pt-20 pb-12">
-          <h1 className="mb-3 font-mono text-2xl font-bold text-white">{title}</h1>
+        <div className="mx-auto w-full max-w-2xl px-6 pt-20 pb-12">
+          <h1 className="mb-3 font-mono text-3xl font-bold text-white">{title}</h1>
           {summary && (
-            <p className="font-mono text-[11px] leading-relaxed text-white">{summary}</p>
+            <p className="font-mono text-[13px] leading-relaxed text-white">{summary}</p>
           )}
 
-          <h2 className="mt-12 mb-4 font-mono text-lg font-bold text-white">Project Overview</h2>
+          <h2 className="mt-12 mb-4 font-mono text-xl font-bold text-white">Project Overview</h2>
 
           {overview?.length > 0 && (
             <div className="grid grid-cols-2 gap-3">
@@ -106,10 +106,10 @@ export default function ProjectDetail() {
 
           {responsibilities?.length > 0 && (
             <Card className="mt-3">
-              <p className="mb-2 font-mono text-[11px] font-bold text-white">Responsibilities</p>
+              <p className="mb-2 font-mono text-[13px] font-bold text-white">Responsibilities</p>
               <div className="space-y-1 pl-3">
                 {responsibilities.map((r) => (
-                  <p key={r} className="font-mono text-[11px] leading-relaxed text-white">
+                  <p key={r} className="font-mono text-[13px] leading-relaxed text-white">
                     {r}
                   </p>
                 ))}
@@ -119,8 +119,8 @@ export default function ProjectDetail() {
 
           {tech?.length > 0 && (
             <Card className="mt-3 mb-8">
-              <p className="mb-1 font-mono text-[11px] font-bold text-white">Tech stack</p>
-              <p className="font-mono text-[11px] leading-relaxed text-white">
+              <p className="mb-1 font-mono text-[13px] font-bold text-white">Tech stack</p>
+              <p className="font-mono text-[13px] leading-relaxed text-white">
                 {tech.join(', ')}
               </p>
             </Card>
