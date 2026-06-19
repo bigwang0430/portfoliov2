@@ -94,6 +94,7 @@ export const PROJECTS = [
           title: 'Impact',
           bullets: [
             '#1 ranked team in Canada for the 2025–26 season',
+            'Peak ranking of #2 in the world during the season',
             '18th in the world at the FIRST Championship, competing against 5,000+ international teams',
             'Provincial finalist in our rookie competitive season',
             'Autonomous routines scoring within ±2cm accuracy across 100+ competition matches',
