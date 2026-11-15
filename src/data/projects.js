@@ -10,7 +10,7 @@ export const PROJECTS = [
   {
     name: 'Smashspeed.ai',
     tagline:
-      'AI-powered shuttlecock speed tracker for badminton. 50,000+ downloads on iOS & Android. Built with a YOLOv5 model and Kalman-filter trajectory tracking, running fully on-device.',
+      'AI-powered shuttlecock speed tracker for badminton. 83,000+ users across 130 countries on iOS & Android. Built in React Native with a custom GridTrackNet model running fully on-device.',
     href: 'https://smashspeed.ca',
     external: true,
   },
@@ -18,7 +18,7 @@ export const PROJECTS = [
     slug: 'furious-frogs',
     name: 'Furious Frogs',
     tagline:
-      'Competitive robotics programming for FIRST Technology Challenge. Lead programmer of FTC #26025 Furious Frogs, currently #1 in Canada. World Championship qualification for 2025–26 season.',
+      'Competitive robotics programming for FIRST Technology Challenge. Lead programmer of FTC #26025 Furious Frogs, which went from rookies to #1 in Canada in two years and qualified for the 2025–26 World Championship.',
     detail: {
       title: 'Furious Frogs FTC Robotics',
       summary:
