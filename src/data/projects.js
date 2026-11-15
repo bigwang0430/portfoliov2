@@ -1,5 +1,5 @@
 // Single source of truth for projects. To add a project, add an entry here.
-//  - External-only project: { name, tagline, href, external: true }
+//  - External-only project: { name, tagline, href, external: true } (none currently)
 //  - Project with a detail page: add `slug` + a `detail` block; the /projects/:slug
 //    route and the generic ProjectDetail renderer pick it up automatically.
 //
@@ -8,11 +8,101 @@
 // `body` (paragraph), `bullets` (string[]), and/or `subsections` (each { title, bullets }).
 export const PROJECTS = [
   {
+    slug: 'smashspeed',
     name: 'Smashspeed.ai',
     tagline:
       'AI-powered shuttlecock speed tracker for badminton. 83,000+ users across 130 countries on iOS & Android. Built in React Native with a custom GridTrackNet model running fully on-device.',
-    href: 'https://smashspeed.ca',
-    external: true,
+    detail: {
+      title: 'SmashSpeed',
+      summary:
+        'SmashSpeed is an AI-powered badminton app that measures shuttlecock smash speed from a phone video, with all processing done on-device so the app stays free for players everywhere.',
+      overview: [
+        { label: 'Role', value: 'Co-founder, Android & ML Pipeline Lead' },
+        { label: 'Reach', value: '83,000+ users in 130 countries' },
+        { label: 'Duration', value: 'June 2025 – Present' },
+        { label: 'Website', value: 'smashspeed.ca', href: 'https://smashspeed.ca' },
+      ],
+      responsibilities: [
+        'Android Development',
+        'ML Model Training',
+        'Processing Pipeline',
+        'Backend & Data',
+        'Product & Business',
+      ],
+      tech: [
+        'React Native',
+        'Kotlin',
+        'Expo',
+        'Python',
+        'Google Colab',
+        'YOLOv5',
+        'GridTrackNet',
+        'Kalman Filtering',
+        'Supabase',
+        'SQL',
+        'Git',
+      ],
+      sections: [
+        {
+          title: 'The Journey',
+          body: 'SmashSpeed started as a simple question: how fast is my smash? We built an app that answers it from a single phone video, and it grew to over 83,000 users across 130 countries. I worked across the whole product, leading Android development and building the pipeline that turns raw footage into a speed reading.',
+        },
+        {
+          title: 'Technical Highlights',
+          subsections: [
+            {
+              title: 'Model Training & Data',
+              bullets: [
+                'Trained the original YOLOv5 shuttlecock detector on an A100 in Colab using 15,000+ images from our own footage',
+                'Hand-labeled about 5,000 images and set up a pre-label plus human correction workflow, training teammates on the labeling rules',
+                'Built the dataset from YouTube smash compilations at first, then from user-uploaded videos in earlier app versions',
+                'Trained a GridTrackNet model on 22,000 images that replaced YOLOv5 in version 3',
+              ],
+            },
+            {
+              title: 'On-Device Processing Pipeline',
+              bullets: [
+                'Implemented the frame processing pipeline that runs detection and trajectory tracking fully on-device',
+                'Chose on-device inference over server calls so the app could stay free without server costs',
+                'Integrated the trained model into the Android app through a Kotlin detector module',
+              ],
+            },
+            {
+              title: 'Android & App Rebuild',
+              bullets: [
+                'Rebuilt both the iOS and Android apps from scratch in React Native, replacing the separate SwiftUI app',
+                'Fixed a frame processing crash during the migration by debugging Expo device builds and tombstone logs, then switching to an API that returns a fully decoded bitmap',
+                'Used Expo for Android builds and testing',
+              ],
+            },
+            {
+              title: 'Backend',
+              bullets: [
+                'Migrated the backend from Firebase to Supabase',
+                'Wrote the SQL behind user account management',
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Impact',
+          bullets: [
+            '83,000+ users across 130 countries',
+            'About 50,000 downloads in the first two months',
+            'Ranked #4 in the Google Play Store sports category',
+            '1M+ views across social media',
+          ],
+        },
+        {
+          title: 'What I Learned',
+          body: 'SmashSpeed taught me that a model is only as good as the product around it. Accuracy mattered, but so did keeping the app free, fast on cheap phones, and simple for players who just want a number. Working on both the engineering and business side showed me how technical choices, like running inference on-device, shape who a product can reach.',
+        },
+        {
+          title: 'Other Details',
+          body: 'Beyond engineering, I had a large role on the business side, helping grow SmashSpeed from launch to a global user base. The project was a team effort: I contributed to every part of it, with my main focus on Android, model training, and the processing pipeline.',
+        },
+      ],
+    },
   },
   {
     slug: 'furious-frogs',
