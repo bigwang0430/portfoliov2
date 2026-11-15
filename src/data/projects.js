@@ -1,5 +1,5 @@
 // Single source of truth for projects. To add a project, add an entry here.
-//  - External-only project: { name, tagline, href, external: true }
+//  - External-only project: { name, tagline, href, external: true } (none currently)
 //  - Project with a detail page: add `slug` + a `detail` block; the /projects/:slug
 //    route and the generic ProjectDetail renderer pick it up automatically.
 //
@@ -8,17 +8,107 @@
 // `body` (paragraph), `bullets` (string[]), and/or `subsections` (each { title, bullets }).
 export const PROJECTS = [
   {
+    slug: 'smashspeed',
     name: 'Smashspeed.ai',
     tagline:
-      'AI-powered shuttlecock speed tracker for badminton. 50,000+ downloads on iOS & Android. Built with a YOLOv5 model and Kalman-filter trajectory tracking, running fully on-device.',
-    href: 'https://smashspeed.ca',
-    external: true,
+      'AI-powered shuttlecock speed tracker for badminton. 83,000+ users across 130 countries on iOS & Android. Built in React Native with a custom GridTrackNet model running fully on-device.',
+    detail: {
+      title: 'SmashSpeed',
+      summary:
+        'SmashSpeed is an AI-powered badminton app that measures shuttlecock smash speed from a phone video, with all processing done on-device so the app stays free for players everywhere.',
+      overview: [
+        { label: 'Role', value: 'Co-founder, Android & ML Pipeline Lead' },
+        { label: 'Reach', value: '83,000+ users in 130 countries' },
+        { label: 'Duration', value: 'June 2025 – Present' },
+        { label: 'Website', value: 'smashspeed.ca', href: 'https://smashspeed.ca' },
+      ],
+      responsibilities: [
+        'Android Development',
+        'ML Model Training',
+        'Processing Pipeline',
+        'Backend & Data',
+        'Product & Business',
+      ],
+      tech: [
+        'React Native',
+        'Kotlin',
+        'Expo',
+        'Python',
+        'Google Colab',
+        'YOLOv5',
+        'GridTrackNet',
+        'Kalman Filtering',
+        'Supabase',
+        'SQL',
+        'Git',
+      ],
+      sections: [
+        {
+          title: 'The Journey',
+          body: 'SmashSpeed started as a simple question: how fast is my smash? We built an app that answers it from a single phone video, and it grew to over 83,000 users across 130 countries. I worked across the whole product, leading Android development and building the pipeline that turns raw footage into a speed reading.',
+        },
+        {
+          title: 'Technical Highlights',
+          subsections: [
+            {
+              title: 'Model Training & Data',
+              bullets: [
+                'Trained the original YOLOv5 shuttlecock detector on an A100 in Colab using 15,000+ images from our own footage',
+                'Hand-labeled about 5,000 images and set up a pre-label plus human correction workflow, training teammates on the labeling rules',
+                'Built the dataset from YouTube smash compilations at first, then from user-uploaded videos in earlier app versions',
+                'Trained a GridTrackNet model on 22,000 images that replaced YOLOv5 in version 3',
+              ],
+            },
+            {
+              title: 'On-Device Processing Pipeline',
+              bullets: [
+                'Implemented the frame processing pipeline that runs detection and trajectory tracking fully on-device',
+                'Chose on-device inference over server calls so the app could stay free without server costs',
+                'Integrated the trained model into the Android app through a Kotlin detector module',
+              ],
+            },
+            {
+              title: 'Android & App Rebuild',
+              bullets: [
+                'Rebuilt both the iOS and Android apps from scratch in React Native, replacing the separate SwiftUI app',
+                'Fixed a frame processing crash during the migration by debugging Expo device builds and tombstone logs, then switching to an API that returns a fully decoded bitmap',
+                'Used Expo for Android builds and testing',
+              ],
+            },
+            {
+              title: 'Backend',
+              bullets: [
+                'Migrated the backend from Firebase to Supabase',
+                'Wrote the SQL behind user account management',
+              ],
+            },
+          ],
+        },
+        {
+          title: 'Impact',
+          bullets: [
+            '83,000+ users across 130 countries',
+            'About 50,000 downloads in the first two months',
+            'Ranked #4 in the Google Play Store sports category',
+            '1M+ views across social media',
+          ],
+        },
+        {
+          title: 'What I Learned',
+          body: 'SmashSpeed taught me that a model is only as good as the product around it. Accuracy mattered, but so did keeping the app free, fast on cheap phones, and simple for players who just want a number. Working on both the engineering and business side showed me how technical choices, like running inference on-device, shape who a product can reach.',
+        },
+        {
+          title: 'Other Details',
+          body: 'Beyond engineering, I had a large role on the business side, helping grow SmashSpeed from launch to a global user base. The project was a team effort: I contributed to every part of it, with my main focus on Android, model training, and the processing pipeline.',
+        },
+      ],
+    },
   },
   {
     slug: 'furious-frogs',
     name: 'Furious Frogs',
     tagline:
-      'Competitive robotics programming for FIRST Technology Challenge. Lead programmer of FTC #26025 Furious Frogs, currently #1 in Canada. World Championship qualification for 2025–26 season.',
+      'Competitive robotics programming for FIRST Technology Challenge. Lead programmer of FTC #26025 Furious Frogs, which went from rookies to #1 in Canada in two years and qualified for the 2025–26 World Championship.',
     detail: {
       title: 'Furious Frogs FTC Robotics',
       summary:
@@ -114,6 +204,106 @@ export const PROJECTS = [
         {
           title: 'What I Learned',
           body: 'Building competition robotics taught me that elegant code means nothing if it fails under pressure. I learned to balance theoretical correctness (Kalman filtering, motion profiling) with practical reliability (graceful sensor failures, conservative timeouts). Working at the hardware-software interface — debugging why a servo stutters or why odometry drifts — gave me a deep appreciation for how software constraints emerge from physical systems.',
+        },
+      ],
+    },
+  },
+  {
+    slug: 'illinois-eats',
+    name: 'IllinoisEats',
+    tagline:
+      'Pairwise restaurant ranker for the UIUC campus. Pick between two places and Glicko-1 ratings build a live campus leaderboard. Built in TypeScript and React on Firebase, with 137 tests behind it.',
+    detail: {
+      title: 'IllinoisEats',
+      summary:
+        'A phone-first web app that ranks the restaurants around the University of Illinois campus from head-to-head votes. Instead of star ratings, you answer one question over and over: "Where would you rather go?" Every pick updates chess-style ratings, and together they form a single campus leaderboard.',
+      overview: [
+        { label: 'Role', value: 'Solo Developer' },
+        { label: 'Status', value: 'Live, pre-launch' },
+        { label: 'Duration', value: 'Oct 2026 – Present' },
+        {
+          label: 'Website',
+          value: 'illinoiseats-a9bd8.web.app',
+          href: 'https://illinoiseats-a9bd8.web.app',
+        },
+      ],
+      responsibilities: [
+        'Product Design',
+        'Full-Stack Development',
+        'Rating & Matchmaking Algorithms',
+        'Database Security',
+        'Testing & QA',
+      ],
+      tech: [
+        'TypeScript',
+        'React',
+        'Vite',
+        'Firebase (Firestore, Auth, Hosting)',
+        'Firestore Security Rules',
+        'Vitest',
+        'Testing Library',
+        'Glicko-1',
+        'oxlint',
+        'Prettier',
+      ],
+      sections: [
+        {
+          title: 'The Idea',
+          body: "There are plenty of workout trackers already, so I wanted to build something new and specific to my community. Star ratings bunch every restaurant between 4.0 and 4.7 and measure everyone, not students. IllinoisEats asks students to compare two places they actually know, the way chess or Valorant ranks players, and turns those picks into a ranking of the 97 restaurants within about a mile of the Main Quad.",
+        },
+        {
+          title: 'Technical Highlights',
+          subsections: [
+            {
+              title: 'Ratings & Matchmaking',
+              bullets: [
+                'Glicko-1 ratings (Elo plus a per-restaurant uncertainty) so new places move fast and established ones settle, with an uncertainty floor so ratings never freeze',
+                'After each pick, reveals the predicted win percentage for both sides, like a red-vs-blue game',
+                'Ladder matchmaking: the winner holds its side while challengers climb from below it, with a warm-up that gives unranked places priority',
+                'Ratings are replayed from a stored vote history, which makes resets and removing a single voter exact',
+              ],
+            },
+            {
+              title: 'Serverless Backend & Security',
+              bullets: [
+                "Runs entirely on Firebase's free plan with no server code: ratings are computed in the voter's browser inside a Firestore transaction",
+                'Firestore security rules act as the server: one vote per person per pair, bounded rating changes, the winner must go up and the loser down',
+                'Google sign-in to vote (anonymous accounts upgrade in place, so earlier votes carry over); anyone can browse',
+                'Kept reads within the free daily quota by loading rating history once per visit',
+              ],
+            },
+            {
+              title: 'Personalization',
+              bullets: [
+                "Personal rankings that run the same Glicko math on only your own votes",
+                'Refine matchups: one pair in every three is chosen to sharpen your own rankings most, scored by p(1 − p) × (RD₁² + RD₂²)',
+                '"You should go here" recommendations from campus ratings plus a learned cuisine lean',
+                'Taste match on a Contrarian / Balanced / Mainstream scale, 20 badges, and a want-to-go list',
+              ],
+            },
+            {
+              title: 'Moderation & Transparency',
+              bullets: [
+                'Hidden admin page to delete reviews, reset rankings, remove one voter and recompute every rating, and create or edit badges',
+                'A public Technical page explains Glicko-1, matchmaking and recommendations with worked examples computed by the app’s own code, plus a sortable data table with rating sparklines',
+                'Practice mode keeps everything in memory with 700 simulated votes, so features can be tested without touching real data',
+              ],
+            },
+          ],
+        },
+        {
+          title: 'By the Numbers',
+          bullets: [
+            '97 restaurants, each checked by hand on Google Maps and against local news for recent openings and closings',
+            '11 cuisine categories, with category leaderboards that rank each one on its own',
+            '137 automated tests covering the rating math, matchmaking, standings, recommendations, badges and main screens',
+            'About 7,000 lines of TypeScript, built and deployed in five weeks',
+            'No real users yet: the full architecture is live, and a seed session with friends comes before sharing it with classmates',
+          ],
+        },
+        {
+          title: 'What I Learned',
+          body: 'Building without a server meant the database rules were the only thing standing between the app and a cheater, so I had to think about every write as an attack. I also learned that most bugs live where features meet: a new matchup type quietly broke review streaks, and a reset on a new device could wipe votes. Writing a regression test for each of those made it safe to keep adding features.',
         },
       ],
     },

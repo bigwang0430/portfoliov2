@@ -1,7 +1,11 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import ParticleBackground from './ParticleBackground'
 import ParticleToggle from './ParticleToggle'
+
+// Three.js + R3F are ~1MB, so load the particle background as its own chunk.
+// Page content paints immediately on the black body; particles fade in once
+// the chunk arrives.
+const ParticleBackground = lazy(() => import('./ParticleBackground'))
 
 // Full-viewport, no-scroll shell. The particle canvas sits behind every page
 // (fixed, -z-10) and each page centers its own content within <main>. The
@@ -12,7 +16,11 @@ export default function Layout() {
 
   return (
     <>
-      {particlesEnabled && <ParticleBackground />}
+      {particlesEnabled && (
+        <Suspense fallback={null}>
+          <ParticleBackground />
+        </Suspense>
+      )}
       <ParticleToggle
         enabled={particlesEnabled}
         onToggle={() => setParticlesEnabled((v) => !v)}
