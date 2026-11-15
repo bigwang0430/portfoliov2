@@ -59,6 +59,10 @@ const Particles = ({ config }) => {
       uParticleColorThree: {
         value: new THREE.Color(MEDUSAE_DEFAULTS.particles.colorThree),
       },
+      uColorRampStart: { value: MEDUSAE_DEFAULTS.particles.colorRampStart },
+      uColorRampEnd: { value: MEDUSAE_DEFAULTS.particles.colorRampEnd },
+      uAlphaBase: { value: MEDUSAE_DEFAULTS.particles.alphaBase },
+      uAlphaActive: { value: MEDUSAE_DEFAULTS.particles.alphaActive },
     }),
     [],
   );
@@ -218,6 +222,10 @@ const Particles = ({ config }) => {
             uniform vec3 uParticleColorOne;
             uniform vec3 uParticleColorTwo;
             uniform vec3 uParticleColorThree;
+            uniform float uColorRampStart;
+            uniform float uColorRampEnd;
+            uniform float uAlphaBase;
+            uniform float uAlphaActive;
             varying vec2 vUv;
             varying float vSize;
             varying vec2 vPos;
@@ -244,8 +252,8 @@ const Particles = ({ config }) => {
                 vec3 activeColor = mix(cBlue, cRed, p1 * 0.5 + 0.5);
                 activeColor = mix(activeColor, cYellow, p2 * 0.5 + 0.5);
 
-                vec3 finalColor = mix(black, activeColor, smoothstep(0.1, 0.8, vSize));
-                float finalAlpha = alpha * mix(0.4, 0.95, vSize);
+                vec3 finalColor = mix(black, activeColor, smoothstep(uColorRampStart, uColorRampEnd, vSize));
+                float finalAlpha = alpha * mix(uAlphaBase, uAlphaActive, vSize);
 
                 gl_FragColor = vec4(finalColor, finalAlpha);
             }
@@ -281,6 +289,10 @@ const Particles = ({ config }) => {
     material.uniforms.uParticleColorThree.value.set(
       merged.particles.colorThree,
     );
+    material.uniforms.uColorRampStart.value = merged.particles.colorRampStart;
+    material.uniforms.uColorRampEnd.value = merged.particles.colorRampEnd;
+    material.uniforms.uAlphaBase.value = merged.particles.alphaBase;
+    material.uniforms.uAlphaActive.value = merged.particles.alphaActive;
   }, [material, merged]);
 
   useEffect(() => {
@@ -354,7 +366,7 @@ const Particles = ({ config }) => {
     };
   }, []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const { clock, pointer } = state;
     material.uniforms.uTime.value = clock.getElapsedTime();
 
@@ -376,7 +388,12 @@ const Particles = ({ config }) => {
     }
 
     const current = material.uniforms.uMouse.value;
-    const dragFactor = merged.cursor.dragFactor;
+    // dragFactor is tuned as "fraction per frame at 60fps". Convert it to a
+    // time-based factor so the halo follows at the same speed at 30/60/120fps
+    // (Safari often caps at 60, or 30 in Low Power Mode). Clamp delta so a
+    // long pause (background tab) doesn't snap the halo.
+    const frames60 = Math.min(delta, 0.1) * 60;
+    const dragFactor = 1 - Math.pow(1 - merged.cursor.dragFactor, frames60);
 
     if (targetX !== null && targetY !== null) {
       current.x += (targetX - current.x) * dragFactor;
@@ -384,7 +401,38 @@ const Particles = ({ config }) => {
     }
   });
 
-  return <instancedMesh ref={meshRef} args={[geometry, material, count]} />;
+  // frustumCulled off: instances are positioned in the shader, so three's
+  // bounding-sphere check is meaningless here and only costs work.
+  return (
+    <instancedMesh
+      ref={meshRef}
+      args={[geometry, material, count]}
+      frustumCulled={false}
+    />
+  );
+};
+
+// Perf: build the WebGL context ourselves. three.js always requests a
+// transparent (alpha) canvas, which makes the browser blend the full-screen
+// canvas with the page every frame — notably expensive in Safari. The scene is
+// opaque black and 2D, so we ask for an opaque canvas with no depth/stencil
+// buffers and no MSAA (particle edges are already smoothed in the shader).
+// DPR is capped at 1.25: soft blobs don't benefit from full Retina.
+const createRenderer = (defaults) => {
+  const attributes = {
+    alpha: false,
+    antialias: false,
+    depth: false,
+    stencil: false,
+    premultipliedAlpha: true,
+    powerPreference: "high-performance",
+  };
+  const context = defaults.canvas.getContext("webgl2", attributes);
+  return new THREE.WebGLRenderer({
+    ...defaults,
+    ...attributes,
+    context: context ?? undefined,
+  });
 };
 
 const Medusae = ({ className, config, style }) => {
@@ -395,7 +443,12 @@ const Medusae = ({ className, config, style }) => {
       className={className ? `medusae-root ${className}` : "medusae-root"}
       style={style}
     >
-      <Canvas className="medusae-canvas" dpr={[1, 2]} camera={{ position: [0, 0, 5] }}>
+      <Canvas
+        className="medusae-canvas"
+        dpr={[1, 1.25]}
+        gl={createRenderer}
+        camera={{ position: [0, 0, 5] }}
+      >
         <color attach="background" args={[merged.background.color]} />
         <Particles config={config} />
       </Canvas>

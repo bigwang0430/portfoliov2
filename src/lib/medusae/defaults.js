@@ -19,7 +19,7 @@ const MEDUSAE_DEFAULTS = {
     scaleY: 1,
   },
   particles: {
-    baseSize: 0.03,
+    baseSize: 0.018, // far-away dots are small specks
     activeSize: 0.06,
     blobScaleX: 1,
     blobScaleY: 0.6,
@@ -27,10 +27,18 @@ const MEDUSAE_DEFAULTS = {
     rotationJitter: 0.2,
     cursorFollowStrength: 1,
     oscillationFactor: 1,
-    colorBase: '#94fcf2',
+    colorBase: '#00FFFF', // cyan for dots away from the cursor
     colorOne: '#48f6f9',
     colorTwo: '#ff86c3',
     colorThree: '#ffbbda',
+    // How far into the halo rim (0 = outside, 1 = on the rim) dots start/finish
+    // blending from colorBase to the accent colors. Higher start = fewer colored dots.
+    colorRampStart: 0.35,
+    colorRampEnd: 0.85,
+    // Opacity of dots far from the halo (alphaBase) vs. on the rim (alphaActive).
+    // A low alphaBase makes the far side of the screen fade into the background.
+    alphaBase: 0.18,
+    alphaActive: 0.95,
   },
   background: {
     color: '#000000',
